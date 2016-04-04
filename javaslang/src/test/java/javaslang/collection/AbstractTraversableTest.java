@@ -22,7 +22,6 @@ import java.util.stream.Collector;
 import static java.lang.System.lineSeparator;
 import static javaslang.Serializables.deserialize;
 import static javaslang.Serializables.serialize;
-import static javax.swing.UIManager.put;
 import static org.assertj.core.api.Assertions.fail;
 import static org.assertj.core.api.Assertions.within;
 
