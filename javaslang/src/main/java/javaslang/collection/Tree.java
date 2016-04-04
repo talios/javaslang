@@ -428,17 +428,6 @@ public interface Tree<T> extends Traversable<T> {
         }
     }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    default <C> Map<C, Seq<T>> groupBy(Function<? super T, ? extends C> classifier) {
-        Objects.requireNonNull(classifier, "classifier is null");
-        if (isEmpty()) {
-            return HashMap.empty();
-        } else {
-            return (Map<C, Seq<T>>) values().groupBy(classifier);
-        }
-    }
-
     @Override
     default Iterator<Seq<T>> grouped(long size) {
         return sliding(size, size);

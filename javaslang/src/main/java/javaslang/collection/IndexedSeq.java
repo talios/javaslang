@@ -113,9 +113,6 @@ public interface IndexedSeq<T> extends Seq<T> {
     <U> IndexedSeq<U> flatMap(Function<? super T, ? extends Iterable<? extends U>> mapper);
 
     @Override
-    <C> Map<C, ? extends IndexedSeq<T>> groupBy(Function<? super T, ? extends C> classifier);
-
-    @Override
     default int indexWhere(Predicate<? super T> predicate, int from) {
         Objects.requireNonNull(predicate, "predicate is null");
         int start = Math.max(from, 0);

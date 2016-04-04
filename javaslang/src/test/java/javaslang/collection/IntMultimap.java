@@ -116,11 +116,6 @@ public class IntMultimap<T> implements Traversable<T>, Serializable {
     }
 
     @Override
-    public <C> Map<C, ? extends IntMultimap<T>> groupBy(Function<? super T, ? extends C> classifier) {
-        return original.groupBy(e -> classifier.apply(e._2)).map((k, v) -> Tuple.of(k, IntMultimap.of(v)));
-    }
-
-    @Override
     public Iterator<IntMultimap<T>> grouped(long size) {
         return original.grouped(size).map(IntMultimap::of);
     }

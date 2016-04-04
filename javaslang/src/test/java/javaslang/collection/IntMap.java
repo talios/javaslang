@@ -115,11 +115,6 @@ public class IntMap<T> implements Traversable<T>, Serializable {
     }
 
     @Override
-    public <C> Map<C, ? extends IntMap<T>> groupBy(Function<? super T, ? extends C> classifier) {
-        return original.groupBy(e -> classifier.apply(e._2)).map((k, v) -> Tuple.of(k, IntMap.of(v)));
-    }
-
-    @Override
     public Iterator<IntMap<T>> grouped(long size) {
         return original.grouped(size).map(IntMap::of);
     }

@@ -610,12 +610,20 @@ public final class TreeSet<T> implements Kind1<TreeSet<?>, T>, SortedSet<T>, Ser
         return iterator().foldRight(zero, f);
     }
 
-    @Override
-    public <C> Map<C, TreeSet<T>> groupBy(Function<? super T, ? extends C> classifier) {
-        Objects.requireNonNull(classifier, "classifier is null");
-        return iterator().groupBy(classifier).map(
-                (key, iterator) -> Tuple.of(key, TreeSet.ofAll(tree.comparator(), iterator)));
-    }
+//    @Override
+//    public <C> Multimap<C, T> groupBy(Function<? super T, ? extends C> classifier) {
+//        Objects.requireNonNull(classifier, "classifier is null");
+//        Iterator iterator = iterator();
+//        if (!iterator.hasNext()) {
+//            return TreeMultimap.withSeq().empty(tree.comparator());
+//        } else {
+//            return foldLeft(TreeMultimap.withSeq().empty(tree.comparator()), (map, entry) -> {
+//                final C key = classifier.apply(entry);
+//                return map.put(key, entry);
+//            });
+//        }
+//
+//    }
 
     @Override
     public Iterator<TreeSet<T>> grouped(long size) {

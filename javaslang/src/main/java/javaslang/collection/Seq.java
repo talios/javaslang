@@ -880,9 +880,6 @@ public interface Seq<T> extends Traversable<T>, Function1<Integer, T> {
     }
 
     @Override
-    <C> Map<C, ? extends Seq<T>> groupBy(Function<? super T, ? extends C> classifier);
-
-    @Override
     Iterator<? extends Seq<T>> grouped(long size);
 
     @Override

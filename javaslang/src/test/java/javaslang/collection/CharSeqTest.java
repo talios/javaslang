@@ -8,13 +8,24 @@ package javaslang.collection;
 import javaslang.Tuple;
 import javaslang.Tuple2;
 import javaslang.control.Option;
-import org.assertj.core.api.*;
+import org.assertj.core.api.BooleanAssert;
+import org.assertj.core.api.DoubleAssert;
+import org.assertj.core.api.IntegerAssert;
+import org.assertj.core.api.IterableAssert;
+import org.assertj.core.api.LongAssert;
+import org.assertj.core.api.ObjectAssert;
+import org.assertj.core.api.StringAssert;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Locale;
+import java.util.NoSuchElementException;
+import java.util.Spliterator;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 
@@ -731,20 +742,20 @@ public class CharSeqTest {
 
     @Test
     public void shouldNilGroupBy() {
-        assertThat(CharSeq.empty().groupBy(Function.identity())).isEqualTo(HashMap.empty());
+        assertThat(CharSeq.empty().groupBy(Function.identity())).isEqualTo(HashMultimap.withSeq().empty());
     }
 
     @Test
     public void shouldNonNilGroupByIdentity() {
-        Map<?, ?> actual = CharSeq.of('a', 'b', 'c').groupBy(Function.identity());
-        Map<?, ?> expected = HashMap.empty().put('a', CharSeq.of('a')).put('b', CharSeq.of('b')).put('c', CharSeq.of('c'));
+        Multimap<?, ?> actual = CharSeq.of('a', 'b', 'c').groupBy(Function.identity());
+        Multimap<?, ?> expected = HashMultimap.withSeq().empty().put('a', 'a').put('b', 'b').put('c', 'c');
         assertThat(actual).isEqualTo(expected);
     }
 
     @Test
     public void shouldNonNilGroupByEqual() {
-        Map<?, ?> actual = CharSeq.of('a', 'b', 'c').groupBy(c -> 1);
-        Map<?, ?> expected = HashMap.empty().put(1, CharSeq.of('a', 'b', 'c'));
+        Multimap<?, ?> actual = CharSeq.of('a', 'b', 'c').groupBy(c -> 1);
+        Multimap<?, ?> expected = HashMultimap.withSeq().empty().put(1, 'a').put(1, 'b').put(1, 'c');
         assertThat(actual).isEqualTo(expected);
     }
 

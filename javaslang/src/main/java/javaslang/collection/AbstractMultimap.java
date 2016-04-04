@@ -224,18 +224,6 @@ import java.util.function.*;
     }
 
     @Override
-    public <C> Map<C, Multimap<K, V>> groupBy(Function<? super Tuple2<K, V>, ? extends C> classifier) {
-        Objects.requireNonNull(classifier, "classifier is null");
-        return foldLeft(HashMap.empty(), (map, entry) -> {
-            final C key = classifier.apply(entry);
-            final Multimap<K, V> values = map.get(key)
-                    .map(entries -> entries.put(entry._1, entry._2))
-                    .getOrElse(createFromEntries(Iterator.of(entry)));
-            return map.put(key, values);
-        });
-    }
-
-    @Override
     public Iterator<Multimap<K, V>> grouped(long size) {
         return sliding(size, size);
     }

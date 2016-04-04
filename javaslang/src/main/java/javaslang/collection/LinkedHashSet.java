@@ -551,15 +551,6 @@ public final class LinkedHashSet<T> implements Kind1<LinkedHashSet<?>, T>, Set<T
     }
 
     @Override
-    public <C> Map<C, LinkedHashSet<T>> groupBy(Function<? super T, ? extends C> classifier) {
-        return foldLeft(HashMap.empty(), (map, t) -> {
-            final C key = classifier.apply(t);
-            final LinkedHashSet<T> values = map.get(key).map(ts -> ts.add(t)).getOrElse(LinkedHashSet.of(t));
-            return map.put(key, values);
-        });
-    }
-
-    @Override
     public Iterator<LinkedHashSet<T>> grouped(long size) {
         return sliding(size, size);
     }

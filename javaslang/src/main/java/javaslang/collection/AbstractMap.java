@@ -105,19 +105,6 @@ abstract class AbstractMap<K, V, M extends AbstractMap<K, V, M>> implements Map<
         return createFromEntries(iterator().filter(predicate));
     }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public <C> Map<C, M> groupBy(Function<? super Tuple2<K, V>, ? extends C> classifier) {
-        Objects.requireNonNull(classifier, "classifier is null");
-        return foldLeft(HashMap.empty(), (map, entry) -> {
-            final C key = classifier.apply(entry);
-            final Map<K, V> values = map.get(key)
-                    .map(entries -> entries.put(entry._1, entry._2))
-                    .getOrElse(createFromEntries(Iterator.of(entry)));
-            return map.put(key, (M) values);
-        });
-    }
-
     @Override
     public Iterator<M> grouped(long size) {
         return sliding(size, size);

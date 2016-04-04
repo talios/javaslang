@@ -89,9 +89,6 @@ public interface LinearSeq<T> extends Seq<T> {
     <U> LinearSeq<U> flatMap(Function<? super T, ? extends Iterable<? extends U>> mapper);
 
     @Override
-    <C> Map<C, ? extends LinearSeq<T>> groupBy(Function<? super T, ? extends C> classifier);
-
-    @Override
     Iterator<? extends LinearSeq<T>> grouped(long size);
 
     @Override

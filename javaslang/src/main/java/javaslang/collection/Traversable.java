@@ -417,10 +417,12 @@ public interface Traversable<T> extends Foldable<T>, Value<T> {
      *
      * @param classifier A function which classifies elements into classes
      * @param <C>        classified class type
-     * @return A Map containing the grouped elements
+     * @return A Multimap containing the grouped elements
      * @throws NullPointerException if {@code classifier} is null.
      */
-    <C> Map<C, ? extends Traversable<T>> groupBy(Function<? super T, ? extends C> classifier);
+    default <C> Multimap<C, T> groupBy(Function<? super T, ? extends C> classifier) {
+        return iterator().groupBy(classifier);
+    }
 
     /**
      * Groups this {@code Traversable} into fixed size blocks.

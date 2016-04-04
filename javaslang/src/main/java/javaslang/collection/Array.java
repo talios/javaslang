@@ -618,15 +618,6 @@ public final class Array<T> implements Kind1<Array<?>, T>, IndexedSeq<T>, Serial
     }
 
     @Override
-    public <C> Map<C, Array<T>> groupBy(Function<? super T, ? extends C> classifier) {
-        return foldLeft(HashMap.empty(), (map, t) -> {
-            final C key = classifier.apply(t);
-            final Array<T> values = map.get(key).map(ts -> ts.append(t)).getOrElse(Array.of(t));
-            return map.put(key, values);
-        });
-    }
-
-    @Override
     public Iterator<Array<T>> grouped(long size) {
         return sliding(size, size);
     }

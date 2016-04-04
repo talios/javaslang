@@ -124,9 +124,6 @@ public interface SortedMap<K, V> extends Map<K, V> {
     <K2, V2> SortedMap<K2, V2> flatMap(BiFunction<? super K, ? super V, ? extends Iterable<Tuple2<K2, V2>>> mapper);
 
     @Override
-    <C> Map<C, ? extends SortedMap<K, V>> groupBy(Function<? super Tuple2<K, V>, ? extends C> classifier);
-
-    @Override
     Iterator<? extends SortedMap<K, V>> grouped(long size);
 
     @Override

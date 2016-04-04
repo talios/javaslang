@@ -160,9 +160,6 @@ public interface Set<T> extends Traversable<T>, Function1<T, Boolean> {
     <U> Set<U> flatMap(Function<? super T, ? extends Iterable<? extends U>> mapper);
 
     @Override
-    <C> Map<C, ? extends Set<T>> groupBy(Function<? super T, ? extends C> classifier);
-
-    @Override
     Iterator<? extends Set<T>> grouped(long size);
 
     @Override

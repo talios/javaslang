@@ -391,12 +391,6 @@ public final class CharSeq implements Kind1<CharSeq, Character>, CharSequence, I
     }
 
     @Override
-    public <C> Map<C, CharSeq> groupBy(Function<? super Character, ? extends C> classifier) {
-        Objects.requireNonNull(classifier, "classifier is null");
-        return iterator().groupBy(classifier).map((c, it) -> Tuple.of(c, CharSeq.ofAll(it)));
-    }
-
-    @Override
     public Iterator<CharSeq> grouped(long size) {
         return sliding(size, size);
     }

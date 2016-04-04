@@ -292,9 +292,6 @@ public interface Multimap<K, V> extends Traversable<Tuple2<K, V>>, Function1<K, 
     }
 
     @Override
-    <C> Map<C, ? extends Multimap<K, V>> groupBy(Function<? super Tuple2<K, V>, ? extends C> classifier);
-
-    @Override
     Iterator<? extends Multimap<K, V>> grouped(long size);
 
     @Override

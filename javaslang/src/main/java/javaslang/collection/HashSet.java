@@ -546,15 +546,6 @@ public final class HashSet<T> implements Kind1<HashSet<?>, T>, Set<T>, Serializa
     }
 
     @Override
-    public <C> Map<C, HashSet<T>> groupBy(Function<? super T, ? extends C> classifier) {
-        return foldLeft(HashMap.empty(), (map, t) -> {
-            final C key = classifier.apply(t);
-            final HashSet<T> values = map.get(key).map(ts -> ts.add(t)).getOrElse(HashSet.of(t));
-            return map.put(key, values);
-        });
-    }
-
-    @Override
     public Iterator<HashSet<T>> grouped(long size) {
         return sliding(size, size);
     }

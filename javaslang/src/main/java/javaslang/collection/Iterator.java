@@ -1404,17 +1404,15 @@ public interface Iterator<T> extends java.util.Iterator<T>, Traversable<T> {
     }
 
     @Override
-    default <C> Map<C, Iterator<T>> groupBy(Function<? super T, ? extends C> classifier) {
+    default <C> Multimap<C, T> groupBy(Function<? super T, ? extends C> classifier) {
         Objects.requireNonNull(classifier, "classifier is null");
         if (!hasNext()) {
-            return HashMap.empty();
+            return HashMultimap.withSeq().empty();
         } else {
-            Map<C, Stream<T>> streams = foldLeft(HashMap.empty(), (map, entry) -> {
+            return foldLeft(HashMultimap.withSeq().empty(), (map, entry) -> {
                 final C key = classifier.apply(entry);
-                final Stream<T> values = map.get(key).map(entries -> entries.append(entry)).getOrElse(Stream.of(entry));
-                return map.put(key, values);
+                return map.put(key, entry);
             });
-            return streams.map((c, ts) -> Tuple.of(c, ts.iterator()));
         }
     }
 

@@ -22,6 +22,7 @@ import java.util.stream.Collector;
 import static java.lang.System.lineSeparator;
 import static javaslang.Serializables.deserialize;
 import static javaslang.Serializables.serialize;
+import static javax.swing.UIManager.put;
 import static org.assertj.core.api.Assertions.fail;
 import static org.assertj.core.api.Assertions.within;
 
@@ -654,20 +655,20 @@ public abstract class AbstractTraversableTest extends AbstractValueTest {
 
     @Test
     public void shouldNilGroupBy() {
-        assertThat(empty().groupBy(Function.identity())).isEqualTo(HashMap.empty());
+        assertThat(empty().groupBy(Function.identity())).isEqualTo(HashMultimap.withSeq().empty());
     }
 
     @Test
     public void shouldNonNilGroupByIdentity() {
-        Map<?, ?> actual = of('a', 'b', 'c').groupBy(Function.identity());
-        Map<?, ?> expected = HashMap.empty().put('a', of('a')).put('b', of('b')).put('c', of('c'));
+        Multimap<?, ?> actual = of('a', 'b', 'c').groupBy(Function.identity());
+        Multimap<?, ?> expected = HashMultimap.withSeq().empty().put('a', 'a').put('b', 'b').put('c', 'c');
         assertThat(actual).isEqualTo(expected);
     }
 
     @Test
     public void shouldNonNilGroupByEqual() {
-        Map<?, ?> actual = of('a', 'b', 'c').groupBy(c -> 1);
-        Map<?, ?> expected = HashMap.empty().put(1, of('a', 'b', 'c'));
+        Multimap<?, ?> actual = of('a', 'b', 'c').groupBy(c -> 1);
+        Multimap<?, ?> expected = HashMultimap.withSeq().empty().put(1, 'a').put(1, 'b').put(1, 'c');
         assertThat(actual).isEqualTo(expected);
     }
 
